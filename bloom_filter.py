@@ -3,7 +3,7 @@ import math
 import time
 
 
-#Load passwords from a file
+#Read passwords from a file
 def load_file(filename):
 
     words = []
@@ -11,12 +11,15 @@ def load_file(filename):
     with open(filename, "r", encoding="latin-1") as file:
 
         for line in file:
-            words.append(line.strip())
+            word = line.strip()
+        
+            if word:
+                words.append(word)
 
     return words
 
 
-# Create hash positions for a password
+# Get hash positions for a password
 def hash_password(password, size, hash_count):
 
     positions = []
@@ -45,8 +48,8 @@ def add_password(password, bit_array, size, hash_count):
         bit_array[position] = 1
 
 
-# Check if a password exist
-def check_password(password, bit_array, size, hash_count):
+# Check if a password exists
+def check_password (password, bit_array, size, hash_count):
 
     positions = hash_password(password, size, hash_count)
 
@@ -68,7 +71,7 @@ def main():
     print("Rockyou passwords:", len(rockyou))
     print("Dictionary passwords:", len(dictionary))
 
-    # Bloom Filter settings
+    #Bloom Filter settings
     expected_items = len(rockyou)
     target_fpr = 0.01
 
@@ -158,4 +161,5 @@ def main():
     print("=============================")
 
 
-main()
+if __name__ == "__main__":
+    main()
